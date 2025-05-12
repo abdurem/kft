@@ -8,7 +8,29 @@
 <body>
     <h1>Welcome, {{ username }}!</h1>
     <p>Your role is: {{ role }}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    <a href="/products/">Go to Product Listings</a>
+
+    <nav>
+        <ul>
+            {% if role == 'consumer' %}
+                <li><a href="{% url 'consumer_transaction_history' %}">Consumer Transaction History</a></li>
+                <li><a href="{% url 'consumer_balance_view' %}">Consumer Balance View</a></li>
+                <li><a href="{% url 'recharge_balance' %}">Recharge balance</a></li>
+
+            {% elif role == 'agent' %}
+                <li><a href="{% url 'accept_cash_payment' %}">accept cash payment</a></li>
+                <li><a href="{% url 'cash_out_consumer' %}">cashout for consumer</a></li>
+                <li><a href="{% url 'pay_bill_on_behalf' %}">Pay bill on behalf</a></li>
+                <li><a href="{% url 'agent_transaction_history' %}">Agent Transaction History</a></li>
+                <li><a href="{% url 'agent_consumer_balance_view' %}">Agent Consumer Balance View</a></li>
+            {%elif role == 'merchant' %}
+                <li><a href="{% url 'transaction_history' %}">Merchant Transaction History</a></li>
+                <li><a href="{% url 'balance_view' %}">Merchant Balance View</a></li>
+                <li><a href="{% url 'manage_products' %}">Manage Products</a></li>
+                <li><a href="{% url 'product_list' %}">Product List</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <a href="{% url 'logout' %}">Logout</a>    
 </body>
 </html>

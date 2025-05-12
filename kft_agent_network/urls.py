@@ -54,7 +54,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('logout/', auth_views.LoginView.as_view(template_name='login.html'), name='logout'),
     path('signup/', signup, name='signup'),
     path('splash/', splash_page, name='splash'),
 ]
@@ -64,22 +64,27 @@ urlpatterns += router.urls
 urlpatterns += [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('product-list/', product_list, name='product_list'),
-    path('manage-products/', manage_products, name='manage_products'),
+    
+    path('merchant/product-list/', product_list, name='product_list'),
+    path('merchant/manage-products/', manage_products, name='manage_products'),
+    path('merchant/transaction-history/', transaction_history, name='transaction_history'),
+    path('merchant/balance-view/', balance_view, name='balance_view'),
+    
     path('delete-product/<int:product_id>/', delete_product, name='delete_product'),
     path('update-product/<int:product_id>/', update_product, name='update_product'),
-    path('transaction-history/', transaction_history, name='transaction_history'),
-    path('balance-view/', balance_view, name='balance_view'),
+    
     path('browse-products/', browse_products, name='browse_products'),
     path('purchase-product/<int:product_id>/', purchase_product, name='purchase_product'),
-    path('consumer-transaction-history/', consumer_transaction_history, name='consumer_transaction_history'),
-    path('consumer-balance-view/', consumer_balance_view, name='consumer_balance_view'),
-    path('recharge-balance/', recharge_balance, name='recharge_balance'),
-    path('accept-cash-payment/', accept_cash_payment, name='accept_cash_payment'),
-    path('cash-out-consumer/', cash_out_consumer, name='cash_out_consumer'),
-    path('agent-dashboard/', agent_dashboard, name='agent_dashboard'),
-    path('pay-bill-on-behalf/', pay_bill_on_behalf, name='pay_bill_on_behalf'),
-    path('agent-transaction-history/', agent_transaction_history, name='agent_transaction_history'),
-    path('agent-consumer-balance-view/', agent_consumer_balance_view, name='agent_consumer_balance_view'),
+    
+    path('consumer/transaction-history/', consumer_transaction_history, name='consumer_transaction_history'),
+    path('consumer/balance-view/', consumer_balance_view, name='consumer_balance_view'),
+    path('consumer/recharge-balance/', recharge_balance, name='recharge_balance'),
+    
+    path('agent/accept-cash-payment/', accept_cash_payment, name='accept_cash_payment'),
+    path('agent/cash-out-consumer/', cash_out_consumer, name='cash_out_consumer'),
+    path('agent/dashboard/', agent_dashboard, name='agent_dashboard'),
+    path('agent/pay-bill-on-behalf/', pay_bill_on_behalf, name='pay_bill_on_behalf'),
+    path('agent/transaction-history/', agent_transaction_history, name='agent_transaction_history'),
+    path('agent/consumer-balance-view/', agent_consumer_balance_view, name='agent_consumer_balance_view'),
     path('accounts/logout/', RedirectView.as_view(url='/logout/')),
 ]
