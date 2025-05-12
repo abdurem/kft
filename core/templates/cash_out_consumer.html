@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Out Consumer</title>
+</head>
+<body>
+    <h1>Cash Out Consumer</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="consumer_username">Enter Consumer Username:</label>
+        <input type="text" name="consumer_username" id="consumer_username" required>
+        <br>
+        <label for="amount">Enter Amount:</label>
+        <input type="number" name="amount" id="amount" step="0.01" required>
+        <br>
+        <button type="submit">Cash Out</button>
+    </form>
+</body>
+</html>

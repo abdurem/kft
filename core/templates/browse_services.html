@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Services</title>
+</head>
+<body>
+    <h1>Browse Services</h1>
+    <ul>
+        {% for service in services %}
+            <li>
+                <strong>{{ service.name }}</strong><br>
+                {{ service.description }}<br>
+                Subscription Fee: ${{ service.subscription_fee }}<br>
+                <a href="{% url 'subscribe_service' service.id %}">Subscribe</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

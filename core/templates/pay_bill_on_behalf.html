@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Bill on Behalf</title>
+</head>
+<body>
+    <h1>Pay Bill on Behalf of Consumer</h1>
+    {% if success_message %}
+        <p style="color: green;">{{ success_message }}</p>
+    {% endif %}
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="consumer_username">Enter Consumer Username:</label>
+        <input type="text" name="consumer_username" id="consumer_username" required>
+        <br>
+        <label for="bill_type">Bill Type:</label>
+        <input type="text" name="bill_type" id="bill_type" required>
+        <br>
+        <label for="account_number">Account Number:</label>
+        <input type="text" name="account_number" id="account_number" required>
+        <br>
+        <label for="amount">Enter Amount:</label>
+        <input type="number" name="amount" id="amount" step="0.01" required>
+        <br>
+        <button type="submit">Pay Bill</button>
+    </form>
+</body>
+</html>
