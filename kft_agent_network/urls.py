@@ -56,7 +56,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LoginView.as_view(template_name='login.html'), name='logout'),
     path('signup/', signup, name='signup'),
-    path('splash/', splash_page, name='splash'),
+    path('', splash_page, name='splash'),
 ]
 
 urlpatterns += router.urls

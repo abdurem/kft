@@ -4,14 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #f76b1c;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], input[type="password"], input[type="email"], select {
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+        }
+        .login-link {
+            margin-top: 1.5rem;
+            color: #333;
+        }
+        .login-link a {
+            color: #f76b1c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Signup</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Signup</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    <div class="signup-container">
+        <h1>Signup</h1>
+        <form method="post" id="signup-form" novalidate autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input type="text" name="username" maxlength="150" required id="id_username">
+            </div>
+            <div class="form-group">
+                <label for="id_password1">Password:</label>
+                <input type="password" name="password1" required id="id_password1">
+            </div>
+            <div class="form-group">
+                <label for="id_password2">Password confirmation:</label>
+                <input type="password" name="password2" required id="id_password2">
+            </div>
+            <div class="form-group">
+                <label for="id_role">Role:</label>
+                <select name="role" id="id_role">
+                    <option value="agent">Agent</option>
+                    <option value="consumer">Consumer</option>
+                    <option value="merchant">Merchant</option>
+                </select>
+            </div>
+            <button type="submit">Signup</button>
+        </form>
+        <ul id="error-list" style="color:#d32f2f; margin-top:1rem; display:none;"></ul>
+        <div class="login-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+    <script>
+        // Hide Django's default error list and show custom errors only when present
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signup-form');
+            const errorList = document.getElementById('error-list');
+            // Hide Django's default error list
+            document.querySelectorAll('.errorlist').forEach(el => el.style.display = 'none');
+            form.addEventListener('submit', function(e) {
+                errorList.innerHTML = '';
+                errorList.style.display = 'none';
+                setTimeout(function() {
+                    const djangoErrors = document.querySelectorAll('.errorlist li');
+                    if (djangoErrors.length > 0) {
+                        djangoErrors.forEach(function(li) {
+                            const msg = li.textContent.trim();
+                            if (msg) {
+                                const item = document.createElement('li');
+                                item.textContent = msg;
+                                errorList.appendChild(item);
+                            }
+                        });
+                        errorList.style.display = 'block';
+                    }
+                }, 50);
+            });
+        });
+    </script>
 </body>
 </html>

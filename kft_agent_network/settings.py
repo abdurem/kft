@@ -162,7 +162,7 @@ AUTH_USER_MODEL = 'core.User'
 
 # Authentication settings
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/splash'  # Redirect to home after login
+LOGIN_REDIRECT_URL = '/'  # Redirect to home after login
 LOGOUT_REDIRECT_URL = 'login'  # Redirect to login after logout
 
 # REST Framework settings

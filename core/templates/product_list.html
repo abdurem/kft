@@ -4,17 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Listing</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .content-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #f76b1c;
+        }
+        ul {
+            width: 100%;
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            background: #f6d36522;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+    </style>
 </head>
 <body>
-    <h1>Product Listing</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                <strong>{{ product.name }}</strong><br>
-                {{ product.description }}<br>
-                Price: ${{ product.price }}<br>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="content-container">
+        <h1>Product Listing</h1>
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name }}</strong><br>
+                    {{ product.description }}<br>
+                    Price: ${{ product.price }}<br>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

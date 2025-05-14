@@ -4,28 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .content-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1, h2 {
+            color: #f76b1c;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+        }
+        ul {
+            width: 100%;
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            background: #f6d36522;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        a {
+            color: #f76b1c;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Manage Products</h1>
-
-    <h2>Add Product</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Product</button>
-    </form>
-
-    <h2>Your Products</h2>
-    <ul>
-        {% for product in products %}
-            <li>
-                <strong>{{ product.name }}</strong><br>
-                {{ product.description }}<br>
-                Price: ${{ product.price }}<br>
-                <a href="{% url 'delete_product' product.id %}">Delete</a>
-                <a href="{% url 'update_product' product.id %}">Update</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="content-container">
+        <h1>Manage Products</h1>
+        <h2>Add Product</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Product</button>
+        </form>
+        <h2>Your Products</h2>
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name }}</strong><br>
+                    {{ product.description }}<br>
+                    Price: ${{ product.price }}<br>
+                    <a href="{% url 'delete_product' product.id %}">Delete</a>
+                    <a href="{% url 'update_product' product.id %}">Update</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

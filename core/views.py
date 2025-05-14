@@ -133,7 +133,7 @@ def purchase_product(request, product_id):
         user=request.user,
         amount=product.price,
         status='completed',
-        reference_id=f'PUR-{product.id}-{request.user.id}'
+        reference_id=f'PUR-{product.id}-{request.user.id}-{uuid.uuid4()}'
     )
 
     # Create a transaction for the merchant
@@ -142,10 +142,12 @@ def purchase_product(request, product_id):
         user=product.merchant,
         amount=product.price,
         status='completed',
-        reference_id=f'SALE-{product.id}-{product.merchant.id}'
+        reference_id=f'SALE-{product.id}-{product.merchant.id}-{uuid.uuid4()}'
     )
 
-    return redirect('browse_products')
+    # Show confirmation on browse_products
+    products = Product.objects.filter(merchant__user_type='merchant')
+    return render(request, 'browse_products.html', {'products': products, 'purchase_success': True})
 
 @login_required
 def browse_services(request):

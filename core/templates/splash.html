@@ -4,33 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splash Page</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .splash-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 0.5rem;
+            color: #f76b1c;
+        }
+        p {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            width: 100%;
+        }
+        nav ul li {
+            margin-bottom: 0.8rem;
+            width: 100%;
+        }
+        nav ul li a {
+            display: block;
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+        }
+        nav ul li a:hover {
+            background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+            color: #fff;
+        }
+        .logout-link {
+            margin-top: 1rem;
+            display: block;
+            background: #fff;
+            color: #f76b1c;
+            border: 2px solid #f76b1c;
+            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+        }
+        .logout-link:hover {
+            background: #f76b1c;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ username }}!</h1>
-    <p>Your role is: {{ role }}</p>
-
-    <nav>
-        <ul>
-            {% if role == 'consumer' %}
-                <li><a href="{% url 'consumer_transaction_history' %}">Consumer Transaction History</a></li>
-                <li><a href="{% url 'consumer_balance_view' %}">Consumer Balance View</a></li>
-                <li><a href="{% url 'recharge_balance' %}">Recharge balance</a></li>
-
-            {% elif role == 'agent' %}
-                <li><a href="{% url 'accept_cash_payment' %}">accept cash payment</a></li>
-                <li><a href="{% url 'cash_out_consumer' %}">cashout for consumer</a></li>
-                <li><a href="{% url 'pay_bill_on_behalf' %}">Pay bill on behalf</a></li>
-                <li><a href="{% url 'agent_transaction_history' %}">Agent Transaction History</a></li>
-                <li><a href="{% url 'agent_consumer_balance_view' %}">Agent Consumer Balance View</a></li>
-            {%elif role == 'merchant' %}
-                <li><a href="{% url 'transaction_history' %}">Merchant Transaction History</a></li>
-                <li><a href="{% url 'balance_view' %}">Merchant Balance View</a></li>
-                <li><a href="{% url 'manage_products' %}">Manage Products</a></li>
-                <li><a href="{% url 'product_list' %}">Product List</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-
-    <a href="{% url 'logout' %}">Logout</a>    
+    <div class="splash-container">
+        <h1>Welcome, {{ username }}!</h1>
+        <p>Your role is: <strong>{{ role|title }}</strong></p>
+        <nav>
+            <ul>
+                {% if role == 'consumer' %}
+                    <li><a href="{% url 'browse_products' %}">Browse Products</a></li>
+                    <li><a href="{% url 'consumer_transaction_history' %}">Consumer Transaction History</a></li>
+                    <li><a href="{% url 'consumer_balance_view' %}">Consumer Balance View</a></li>
+                    <li><a href="{% url 'recharge_balance' %}">Recharge balance</a></li>
+                {% elif role == 'agent' %}
+                    <li><a href="{% url 'accept_cash_payment' %}">Accept Cash Payment</a></li>
+                    <li><a href="{% url 'cash_out_consumer' %}">Cashout for Consumer</a></li>
+                    <li><a href="{% url 'pay_bill_on_behalf' %}">Pay Bill on Behalf</a></li>
+                    <li><a href="{% url 'agent_transaction_history' %}">Agent Transaction History</a></li>
+                    <li><a href="{% url 'agent_consumer_balance_view' %}">Agent Consumer Balance View</a></li>
+                {% elif role == 'merchant' %}
+                    <li><a href="{% url 'transaction_history' %}">Merchant Transaction History</a></li>
+                    <li><a href="{% url 'balance_view' %}">Merchant Balance View</a></li>
+                    <li><a href="{% url 'manage_products' %}">Manage Products</a></li>
+                    <li><a href="{% url 'product_list' %}">Product List</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <a class="logout-link" href="{% url 'logout' %}">Logout</a>
+    </div>
 </body>
 </html>
